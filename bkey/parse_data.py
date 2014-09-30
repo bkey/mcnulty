@@ -113,7 +113,6 @@ def read_from_txt(filename, keep_raw):
 
             house_dict[serial] = house_list
 
-
             line_list.append(line[32:34]) #person number
 
             line_list.append(line[34:44]) #person wgt
@@ -139,7 +138,7 @@ def read_from_txt(filename, keep_raw):
 
             line_list.append(line[80:]) #income
 
-            outfile.write(",".join(line_list)[:-2] + '\n')
+            outfile.write(",".join(line_list)[:-1] + '\n')
 
     with open("households.txt", "w") as housefile:
         for k,v in house_dict.iteritems():
