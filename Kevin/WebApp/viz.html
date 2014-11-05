@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Prediction Wizard</title>
+  <link rel="stylesheet" href="static/d3.slider.css" /> 
+  <style>
+
+    body {
+      font-family: Verdana,Arial,sans-serif;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      margin: 60px 0 5px 0;
+      color: gray
+    }
+
+    .space {
+      margin-bottom: 20 px;
+    }
+
+    .wrapper {
+      width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 0px;
+    }
+
+    #bar_chart {
+      margin-bottom: 0 px;
+    }
+
+    .bar {
+      fill: #FF75A3;
+    }
+
+    span {
+      color: steelblue;
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+  <div id="chart_area" class="wrapper">
+    <h2>Chance of owning a home</h2>
+    <p class="space"></p>
+    <div id="bar_chart">
+    </div>
+  </div>
+
+  <div id="sliders" class="wrapper">
+
+    <h2 class="feature">Age: <span id="age">25</span></h2>
+    <div id="age_slider"></div>
+
+    <h2 class="feature">Marital Status: <span id="marital_status">1</span></h2>
+    <div id="marital_status_slider"></div>
+
+    <h2 class="feature">Education Level: <span id="edu_level_id">1</span></h2>
+    <div id="edu_level_id_slider"></div>
+    
+    <h2 class="feature">Household Income: <span id="income_total">1</span></h2>
+    <div id="income_total_slider"></div>
+
+  </div>
+
+  <!-- Import the libraries: jQuery, d3, d3.slider -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="static/d3.slider.js"></script>
+  
+  <script>
+
+    <!-- SINGLE BAR CHART -->
+
+    var current_age = 25;
+    var current_marital_status = 1;
+    var current_edu_level_id = 1;
+    var current_income_total = 50000;
+    var current_chance = 74.0;
+    
+    var chart = d3.select("#bar_chart")
+      .append("svg:svg")
+        .attr("width", 800)
+        .attr("height", 100);
+
+    var chance_scale = d3.scale.linear()
+      .domain([0, 100])
+      .range([0, 800]);
+
+    var bar = chart.append("g")
+                   .attr("class", "bar")
+
+    bar.append("svg:rect")
+      .attr("id", "chancebar")
+      .attr("class", "bar")
+      .attr("width", chance_scale(current_chance))
+      .attr("height", 50);
+
+     bar.append("text")
+        .attr("id", "percent_text")
+        .attr("dy", ".75em")
+        .attr("y", 15)
+        .attr("x", chance_scale(current_chance-5))
+        .attr("text-anchor", "middle")
+        .attr("fill", "white")
+        .attr("font-size", 20)
+        .text( current_chance.toFixed(1) + "%");
+
+
+    <!-- FUNCTION TO GET CHANCE FROM YOUR PREDICTOR WITH AJAX AND CHANGE BAR  HEIGHT -->
+    function getAndDrawChance(age, marital_status, edu_level_id, income_total){ 
+        
+    	$.ajax({ 
+    		type: "POST", 
+    		contentType: "application/json; charset=utf-8", 
+    		url: "/score", 
+    		dataType: "json", 
+    		async: true, 
+    		data: "{\"example\": ["+age+","+marital_status+","+edu_level_id+","+income_total+"]}", 
+    		success: function (data) { 
+    		   var chance = 100 * data["score"]; 
+                   d3.select("#chancebar")
+                         .attr("width", chance_scale(chance));
+                   d3.select("#percent_text")
+                         .attr("x", chance_scale(chance-5))
+                         .text(chance.toFixed(1) + "%");
+    		}, 
+    		error: function (result) { 
+    		} 
+    	       }) 
+    } 
+
+
+    <!-- SLIDERS -->
+
+    d3.select('#age_slider')
+      .call(
+            d3.slider()
+              .value(current_age)
+              .step(1)
+              .axis(true)
+              .on("slide", function(evt,value) {
+                                                d3.select('#age').text(value);
+                                                current_age = value;
+                                                getAndDrawChance(current_age, current_marital_status, 
+                                                current_edu_level_id, current_income_total)
+                                               }
+                 )
+           );
+
+    d3.select('#marital_status_slider')
+      .call(
+            d3.slider()
+              .value(current_marital_status)
+              .min(1)
+              .max(6)
+              .step(1)
+              .axis(true)
+              .on("slide", function(evt,value) {
+                                                 d3.select('#marital_status').text(value);
+                                                 current_marital_status = value;
+                                                 getAndDrawChance(current_age, current_marital_status, 
+                                                current_edu_level_id, current_income_total)
+                                               }
+                 )
+           );
+
+    d3.select('#edu_level_id_slider')
+      .call(
+            d3.slider()
+              .value(current_edu_level_id)
+              .min(1)
+              .max(6)
+              .step(1)
+              .axis(true)
+              .on("slide", function(evt,value) {
+                                                 d3.select('#edu_level_id').text(value);
+                                                 current_edu_level_id = value;
+                                                 getAndDrawChance(current_age, current_marital_status, 
+                                                current_edu_level_id, current_income_total)
+                                               }
+                 )
+           );
+           
+    d3.select('#income_total_slider')
+      .call(
+            d3.slider()
+              .value(current_income_total)
+              .min(10000)
+              .max(300000)
+              .step(10000)
+              .axis(true)
+              .on("slide", function(evt,value) {
+                                                 d3.select('#income_total').text(value);
+                                                 current_income_total = value;
+                                                 getAndDrawChance(current_age, current_marital_status, 
+                                                current_edu_level_id, current_income_total)
+                                               }
+                 )
+           );  
+
+  </script>
+</body>
+</html>
