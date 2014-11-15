@@ -1,0 +1,155 @@
+{
+ "name": "Is this Person a College Graduate?",
+ "size": 5,
+ "percent": 0.31,
+ "children": [
+  {
+   "name": "Is he/she Currently Employed?",
+   "size": 5,
+   "children": [
+    { "name": "Yes", "size": 10, "percent" : 0.357174 },
+    { "name": "No", "size": 6, "percent" : 0.211218 }
+   ]
+  },
+  {
+   "name": "What is his/her Income Level?",
+   "size": 5,
+   "children": [
+    {"name": "Less Than 25k", "size": 7, "percent" : 0.171358},
+    {"name": "25k to 50k ", "size": 7, "percent" : 0.278965},
+    {"name": "50k to 75k ", "size": 6, "percent" : 0.468029},
+    {"name": "75k to 100k ", "size": 3, "percent" : 0.600626},
+    {"name": "Greater than 100k", "size": 5, "percent": 0.751976} 
+    ]
+  },
+  {
+   "name": "What is his/her Age?",
+   "size": 5,
+   "children": [
+    {"name": "20s", "size": 3, "percent" : 0.270587},
+    {"name": "30s", "size": 6, "percent" : 0.351064},
+    {"name": "40s", "size": 6, "percent" : 0.352981},
+    {"name": "50s", "size": 5, "percent" : 0.306103},
+    {"name": "60s", "size": 4, "percent" : 0.300373},
+    {"name": "70s", "size": 2, "percent" : 0.248063},
+    {"name": "80s", "size": 2, "percent" : 0.195902}
+   ]
+  },
+  {
+   "name": "What is his/her Race?",
+   "size": 5,
+   "children": [
+    {"name": "White", "size": 9, "percent" : 0.314148},
+    {"name": "Black/African American", "size": 3, "percent" : 0.216628},
+    {"name": "Native American", "size": 1, "percent" : 0.131313},
+    {"name": "Asian", "size": 4, "percent" : 0.493950},
+    {"name": "Mixed/Other", "size": 5, "percent" : 0.259944}
+   ]
+  },
+  {
+   "name": "Was he/she born outside the US?",
+   "size": 5,
+   "children": [
+    {"name": "Europe", "size": 2, "percent" : 0.487040},
+    {"name": "South/Central America", "size": 3, "percent" : 0.128879},
+    {"name": "Asia", "size": 3, "percent" : 0.606452},
+    {"name": "Africa", "size": 2, "percent" : 0.449942},
+    {"name": "Oceania", "size": 2, "percent" : 0.358974}
+   ]
+  },
+  {
+   "name": "What Industry does he/she Work In?",
+   "size": 5,
+   "children": [
+    {"name": "Architectural engineering and related services", "size":0.6, "percent" :0.675}, 
+	{"name": "Automobile dealers", "size":0.529, "percent" :0.13043478260869565}, 
+	{"name": "Banking and related activities", "size":0.928, "percent" :0.4827586206896552}, 
+	{"name": "Child day care services", "size":0.652, "percent" :0.26226993865030673}, 
+	{"name": "Colleges and universities including junior colleges", "size":1.485, "percent" :0.7683501683501683}, 
+	{"name": "Computer systems design and related services", "size":0.918, "percent" :0.7559912854030502}, 
+	{"name": "Construction", "size":4.378, "percent" :0.1267702147099132}, 
+	{"name": "Crop production", "size":0.535, "percent" :0.14953271028037382}, 
+	{"name": "Department stores and discount stores", "size":0.86, "percent" :0.14534883720930233}, 
+	{"name": "Elementary and secondary schools", "size":4.127, "percent" :0.6881511994184638}, 
+	{"name": "Employment services", "size":0.542, "percent" :0.25461254612546125}, 
+	{"name": "Grocery stores", "size":1.037, "percent" :0.15139826422372227}, 
+	{"name": "Home health care services", "size":0.583, "percent" :0.22126929674099485}, 
+	{"name": "Hospitals", "size":2.947, "percent" :0.4865965388530709}, 
+	{"name": "Individual and family services", "size":0.701, "percent" :0.44650499286733236}, 
+	{"name": "Insurance carriers and related activities", "size":1.182, "percent" :0.5143824027072758}, 
+	{"name": "Justice public order and safety activities", "size":1.204, "percent" :0.36129568106312293}, 
+	{"name": "Landscaping services", "size":0.581, "percent" :0.08950086058519793}, 
+	{"name": "Legal services", "size":0.659, "percent" :0.7223065250379362}, 
+	{"name": "Management scientific and technical consulting services", "size":0.667, "percent" :0.7346326836581709}, 
+	{"name": "Nursing care facilities", "size":0.806, "percent" :0.20471464019851116}, 
+	{"name": "Offices of physicians", "size":0.699, "percent" :0.46494992846924177}, 
+	{"name": "Other amusement gambling and recreation industries", "size":0.724, "percent" :0.27348066298342544}, 
+	{"name": "Other health care services", "size":0.554, "percent" :0.40794223826714804}, 
+	{"name": "Outpatient care centers", "size":0.757, "percent" :0.5640686922060766}, 
+	{"name": "Real estate", "size":1.116, "percent" :0.3772401433691756}, 
+	{"name": "Restaurants and other food services", "size":2.935, "percent" :0.15298126064735945}, 
+	{"name": "Services to buildings and dwellings", "size":0.719, "percent" :0.08484005563282336}, 
+	{"name": "Traveler accommodation", "size":0.727, "percent" :0.15818431911966988}, 
+	{"name": "Truck transportation", "size":0.838, "percent" :0.0883054892601432}
+   ]
+  },
+  {
+   "name": "Where does he/she live?",
+   "size": 5,
+   "children": [
+   	{"name": "Alabama", "size":1, "percent" :0.2394916911}, 
+{"name": "Alaska", "size":1, "percent" :0.2981427175}, 
+{"name": "Arizona", "size":1, "percent" :0.2477440525}, 
+{"name": "Arkansas", "size":1, "percent" :0.2330595483}, 
+{"name": "California", "size":3, "percent" :0.3000693687}, 
+{"name": "Colorado", "size":1, "percent" :0.3900048996}, 
+{"name": "Connecticut", "size":1, "percent" :0.4104320337}, 
+{"name": "Delaware", "size":1, "percent" :0.3147243545}, 
+{"name": "District of Columbia", "size":1, "percent" :0.5635994587}, 
+{"name": "Florida", "size":1, "percent" :0.2992107707}, 
+{"name": "Georgia", "size":1, "percent" :0.3189352084}, 
+{"name": "Hawaii", "size":1, "percent" :0.3132098027}, 
+{"name": "Idaho", "size":1, "percent" :0.2560728745}, 
+{"name": "Illinois", "size":1, "percent" :0.3348384856}, 
+{"name": "Indiana", "size":1, "percent" :0.2576866764}, 
+{"name": "Iowa", "size":1, "percent" :0.2610062893}, 
+{"name": "Kansas", "size":1, "percent" :0.3434343434}, 
+{"name": "Kentucky", "size":1, "percent" :0.2496050553}, 
+{"name": "Louisiana", "size":1, "percent" :0.2684157417}, 
+{"name": "Maine", "size":1, "percent" :0.3264984227}, 
+{"name": "Maryland", "size":1, "percent" :0.4019963702}, 
+{"name": "Massachusetts", "size":1, "percent" :0.4138198758}, 
+{"name": "Michigan", "size":1, "percent" :0.2846003899}, 
+{"name": "Minnesota", "size":1, "percent" :0.3561576355}, 
+{"name": "Mississippi", "size":1, "percent" :0.2325581395}, 
+{"name": "Missouri", "size":1, "percent" :0.2837345004}, 
+{"name": "Montana", "size":1, "percent" :0.2881152461}, 
+{"name": "Nebraska", "size":1, "percent" :0.3158705701}, 
+{"name": "Nevada", "size":1, "percent" :0.2236933798}, 
+{"name": "New Hampshire", "size":1, "percent" :0.3845201238}, 
+{"name": "New Jersey", "size":1, "percent" :0.3801388147}, 
+{"name": "New Mexico", "size":1, "percent" :0.2541222114}, 
+{"name": "New York", "size":2, "percent" :0.3457420925}, 
+{"name": "North Carolina", "size":1, "percent" :0.285258116}, 
+{"name": "North Dakota", "size":1, "percent" :0.312326228}, 
+{"name": "Ohio", "size":1, "percent" :0.2585903084}, 
+{"name": "Oklahoma", "size":1, "percent" :0.2168888889}, 
+{"name": "Oregon", "size":1, "percent" :0.2885802469}, 
+{"name": "Pennsylvania", "size":1, "percent" :0.3133762789}, 
+{"name": "Puerto Rico", "size":1, "percent" :0.3522491349}, 
+{"name": "Rhode Island", "size":1, "percent" :0.2895377129}, 
+{"name": "South Carolina", "size":1, "percent" :0.2854877082}, 
+{"name": "South Dakota", "size":1, "percent" :0.2532523851}, 
+{"name": "Tennessee", "size":1, "percent" :0.2497873064}, 
+{"name": "Texas", "size":1, "percent" :0.3046127067}, 
+{"name": "Utah", "size":1, "percent" :0.3638888889}, 
+{"name": "Vermont", "size":1, "percent" :0.3741258741}, 
+{"name": "Virginia", "size":1, "percent" :0.3294334975}, 
+{"name": "Washington", "size":1, "percent" :0.2208067941}, 
+{"name": "West Virginia", "size":1, "percent" :0.3038130381}, 
+{"name": "Wisconsin", "size":1, "percent" :0.2268135904}, 
+{"name": "Wyoming", "size":1, "percent" :0.226814}
+   ]
+   }
+ ]
+}

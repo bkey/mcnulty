@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<title>Percent of Population with A Bachelor's Degree or Higher</title>
+</head>
+<style type="text/css">
+#legend {
+    padding: 1.5em 0 0 1.5em;
+}
+
+li.key {
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 10%;
+    padding-left: 0;
+    padding-right: 0;
+    list-style: none;
+    white-space: nowrap;
+    display: inline;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+<body>
+<h1><center>Percentage of Respondents with a Bachelor's Degree or Higher by State</center></h1>
+<div id="map"><div id="legend"</div></div> 
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="colorbrewer.js" type="text/javascript"></script>
+<script src="queue.min.js" type="text/javascript"></script>
+<script src="underscore-min.js" type="text/javascript"></script>
+<script src="topojson.min.js" type="text/javascript"></script>
+<script src="highlight.pack.js" type="text/javascript"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script>
+var urls = {
+    us: "us.json",
+    data: "bachelors-degrees.csv"
+};
+
+var margin = {top: 10, left: 10, bottom: 10, right: 10}
+  , width = parseInt(d3.select('#map').style('width'))
+  , width = width - margin.left - margin.right
+  , mapRatio = .5
+  , height = width * mapRatio;
+
+var formats = {
+    percent: d3.format('%')
+};
+
+// projection and path setup
+var projection = d3.geo.albersUsa()
+    .scale(width)
+    .translate([width / 2, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+// scales and axes
+var colors = d3.scale.quantize()
+    .range(colorbrewer.Blues[7]);
+
+// make a map
+var map = d3.select('#map').append('svg')
+    .style('height', height + 'px')
+    .style('width', width + 'px');
+    
+ var tip = d3.tip()
+  		.attr('class', 'd3-tip')
+  		.offset(function(d){
+  			return [30,0];	
+  		})  
+  		.html(function(d) {
+  		name = d.properties.name;
+  		return  "<span>" + name + ' ' + Math.round(data[name].percent*100) + "%</span>";
+  	})
+  
+  	map.call(tip);
+
+// queue and render
+queue()
+    .defer(d3.json, urls.us)
+    .defer(d3.csv, urls.data)
+    .await(render);
+
+// catch the resize
+d3.select(window).on('resize', resize);
+
+function render(err, us, data) {
+
+    var land = topojson.mesh(us, us.objects.land)
+      , states = topojson.feature(us, us.objects.states);
+
+    window.us = us;
+
+    data = window.data = _(data).chain().map(function(d) {
+        //d.Total = +d.Total;
+        //d["Bachelor's degree"] = +d["Bachelor's degree"];
+        d.percent = d.percent;
+        return [d.Name, d];
+    }).object().value();
+
+    colors.domain([
+        0, 
+        d3.max(d3.values(data), function(d) { return d.percent; })
+    ]);
+
+    map.append('path')
+        .datum(land)
+        .attr('class', 'land')
+        .attr('d', path);
+
+    var states = map.selectAll('path.state')
+        .data(states.features)
+      .enter().append('path')
+        .attr('class', 'state')
+        .attr('id', function(d) { 
+            return d.properties.name.toLowerCase().replace(/\s/g, '-'); 
+        })
+        .attr('d', path)
+        .style('fill', function(d) {
+            var name = d.properties.name
+              , value = data[name] ? data[name].percent : null;
+
+            return colors(value);
+        });
+
+    states.on('mouseover', function(d) {
+  		tip.show(d)
+	})
+   	.on('mouseout', tip.hide)
+
+}
+
+function resize() {
+    // adjust things when the window size changes
+    width = parseInt(d3.select('#map').style('width'));
+    width = width - margin.left - margin.right;
+    height = width * mapRatio;
+
+    // update projection
+    projection
+        .translate([width / 2, height / 2])
+        .scale(width);
+
+    // resize the map container
+    map
+        .style('width', width + 'px')
+        .style('height', height + 'px');
+
+    // resize the map
+    map.select('.land').attr('d', path);
+    map.selectAll('.state').attr('d', path);
+}
+
+// highlight my code blocks
+d3.selectAll('pre code').each(function() {
+    var code = d3.select(this)
+      , highlight = hljs.highlight('javascript', code.html());
+
+    code.html(highlight.value);
+});
+
+var legend = d3.select('#legend')
+  .append('ul')
+    .attr('class', 'list-inline');
+
+var keys = legend.selectAll('li.key')
+    .data(colors.range());
+
+keys.enter().append('li')
+    .attr('class', 'key')
+    .style('border-top-color', String)
+    .text(function(d) {
+        var r = colors.invertExtent(d);
+        return formats.percent(r[0]);
+    });
+
+</script>
+</body>
+</html>
+
+
