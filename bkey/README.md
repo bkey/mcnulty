@@ -1,1 +1,1 @@
-this is a test   
+We are trying to identify survey respondents who have a Bachelor’s Degree or higher. For this model, we removed from our data set, all people under the age of 21. That left us with about 93000 respondents. We have developed a model, using Logistic Regression, that takes CPS data and is able to identity college graduates with 81% accuracy.   
